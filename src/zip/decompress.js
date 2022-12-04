@@ -18,7 +18,6 @@ const decompress = async () => {
     await pipe(source, unzip, destination);
   } catch (err) {
     console.error("An error occurred:", err);
-    process.exitCode = 1;
   }
 };
 

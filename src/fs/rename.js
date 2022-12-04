@@ -1,15 +1,6 @@
-import { access } from "node:fs/promises";
-import fs from "node:fs";
+import { access, rename as renameFile } from "node:fs/promises";
 
 const rename = async () => {
-  const renameFile = (oldFile, newFile) => {
-    fs.rename(oldFile, newFile, (err) => {
-      if (err) {
-        throw err;
-      }
-    });
-  };
-
   let oldPathExists = false;
 
   const oldPath = new URL("./files/wrongFilename.txt", import.meta.url);
@@ -17,13 +8,11 @@ const rename = async () => {
 
   try {
     await access(oldPath);
-
     oldPathExists = true;
-
     await access(newPath);
   } catch {
     if (oldPathExists) {
-      return renameFile(oldPath, newPath);
+      return await renameFile(oldPath, newPath);
     }
   }
 

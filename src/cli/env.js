@@ -1,10 +1,10 @@
 import { env } from "node:process";
 
-const parseEnv = () =>
-  Object.entries(env)
+const parseEnv = () => {
+  const variables = Object.entries(env)
     .filter(([key]) => key.includes("RSS_"))
-    .forEach(([key, value]) => {
-      console.log(`${key}=${value}`);
-    });
+    .map(([key, value]) => `${key}=${value}`);
 
+  console.log(variables.join("; "));
+};
 parseEnv();

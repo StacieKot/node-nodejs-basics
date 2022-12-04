@@ -1,11 +1,15 @@
 import { argv } from "node:process";
 
 const parseArgs = () => {
-  argv.forEach((arg, index) => {
-    if (/^--/.test(arg)) {
-      console.log(`${arg} is ${argv[index + 1]}`);
-    }
-  });
+  const args = argv.reduce(
+    (acc, arg, index) =>
+      /^--/.test(arg)
+        ? [...acc, `${arg.substring(2)} is ${argv[index + 1]}`]
+        : acc,
+    []
+  );
+
+  console.log(args.join(", "));
 };
 
 parseArgs();
